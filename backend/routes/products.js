@@ -12,6 +12,9 @@ const router = express.Router()
 // Router route(dẫn) đến mục "/products" để get (nhận request) và đưa vào controller function (hàm điều khiển)
 router.route("/products").get(getProducts);
 
+//Router route(dẫn) đến mục "/products" để post sản phẩm mới
+router.route("/admin/products").post(newProduct);
+
 // để sử dụng trong các files. Khi 1 tệp (app.js) muốn import từ 1 module khác (product.js) thì cần export dữ liệu từ module đó (tương tự return)
 export default router;
 
