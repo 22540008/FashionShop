@@ -61,6 +61,26 @@ const productSchema = new mongoose.Schema(
       },
     },
 
+    // Các thuộc tính khác của sản phẩm
+    variants: [
+      {
+        color: {
+          type: String,
+          required: [true, "Vui lòng nhập màu sản phẩm."],
+          enum: ["Trắng", "Đen", "Đỏ", "Xanh", "Vàng", "Hồng", "Cam", "Xám", "Nâu", "Sọc", "Họa tiết"],
+        },
+        size: {
+          type: String,
+          required: [true, "Vui lòng nhập kích cỡ sản phẩm"],
+          enum: ["S", "M", "L", "F"],
+        },
+        stock: {
+          type: Number,
+          required: [true, "Vui lòng nhập lượng tồn kho sản phẩm"],
+        },
+      },
+    ],
+
     color: {
       type: [String],
       required: [true, "Vui lòng nhập màu sản phẩm."],
@@ -96,6 +116,11 @@ const productSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "User", // Chỉ active khi project go-live
           required: true,  // Chỉ active khi project go-live
+        },
+        order: { // expansion: review tạo theo đơn hàng
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Order", // Chỉ active khi project go-live
+          required: false,  // Chỉ active khi project go-live
         },
         rating: {
           type: Number,
