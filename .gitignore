@@ -13,7 +13,7 @@ backend/config/config.env.local
 .env.docker
 .dockerignore
 Dockerfile
-frontend/build
+# frontend/build
 docker-run.ps1
 
 
