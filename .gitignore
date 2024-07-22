@@ -2,9 +2,9 @@ node_modules
 frontend\node_modules
 
 # Các gói chỉ comment khi deploy
-package-lock.json
-frontend\package-lock.json
-build
+# package-lock.json
+# frontend\package-lock.json
+# build
 
 # Không để trong script của package.json để tránh lỗi khi deploy:
 # "build": "babel backend -d build --copy-files",
@@ -14,7 +14,7 @@ backend/config/config.env.local
 .env.docker
 .dockerignore
 Dockerfile
-frontend/build
+# frontend/build
 docker-run.ps1
 
 
