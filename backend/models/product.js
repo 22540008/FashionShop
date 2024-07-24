@@ -164,6 +164,11 @@ const productSchema = new mongoose.Schema(
       ref: "User", // Chỉ active khi project go-live
       // required: true, // Chỉ active khi project go-live
     },
+
+    visible: {
+      type: Boolean,
+      default: true,
+    }
   },
   
   { timestamps: true }

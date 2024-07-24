@@ -15,10 +15,12 @@ class APIFilters{
                 // Sử dụng biểu thức regex để tìm kiếm không phân biệt chữ hoa chữ thường với tùy chọn "i"
                   $regex: this.queryStr.keyword,
                   $options: "i",
-              },        
+              },
+            //   visible: { $ne: false },        
           }
           // Nếu không có từ khóa, sử dụng đối tượng rỗng
           : {};
+        //   : { visible: { $ne: false } }
           const category = this.queryStr.category; // Assuming category is a top-level string
           if (category) {
             keyword['category.name'] = category; // Lọc theo tên category

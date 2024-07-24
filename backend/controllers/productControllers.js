@@ -36,6 +36,7 @@ export const getProducts = catchAsyncErrors(async (req, res, next) => {
             {
               $match: {
                 ratings: { $gte: 4 },
+                visible: { $ne: false },
               },
             },
             {
@@ -58,20 +59,23 @@ export const getProducts = catchAsyncErrors(async (req, res, next) => {
   // Kiểm tra cache cho các truy vấn có bộ lọc
   let products, filteredProductsCount;
   try {
-    const cachedProducts = await redisClient.get(filterCacheKey);
+    let cachedProducts = await redisClient.get(filterCacheKey);
+    cachedProducts = null; // enable if test new code
     if (cachedProducts) {
       const cachedData = JSON.parse(cachedProducts);
       products = cachedData.products;
       filteredProductsCount = cachedData.filteredProductsCount;
     } else {
       // Áp dụng bộ lọc từ yêu cầu API
-      const apiFilters = new APIFilters(Product, req.query)
+      // const apiFilters = new APIFilters(Product, req.query)
+      const apiFilters = new APIFilters(Product.find({ visible: { $ne: false } }), req.query)
         .search()
         .filters()
         .sorting();
 
       products = await apiFilters.query;
       filteredProductsCount = products.length;
+      console.log("filteredProductsCount: ", filteredProductsCount);
 
       // Phân trang sản phẩm
       apiFilters.pagination(resPerPage);
