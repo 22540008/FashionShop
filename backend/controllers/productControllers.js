@@ -60,7 +60,7 @@ export const getProducts = catchAsyncErrors(async (req, res, next) => {
   let products, filteredProductsCount;
   try {
     let cachedProducts = await redisClient.get(filterCacheKey);
-    cachedProducts = null; // enable if test new code
+    // cachedProducts = null; // enable if test new code
     if (cachedProducts) {
       const cachedData = JSON.parse(cachedProducts);
       products = cachedData.products;
