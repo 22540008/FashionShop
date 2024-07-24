@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+ import nodemailer from 'nodemailer';
 // // Hàm gửi email
 // const sendEmail = async (options) => {
 //   const transport = nodemailer.createTransport({
