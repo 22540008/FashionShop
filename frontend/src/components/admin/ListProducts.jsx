@@ -27,12 +27,12 @@ const ListProducts = () => {
   const location = useLocation(); // Search info
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const filteredProductId = queryParams.get('productId');
+    const filteredProductId = queryParams.get("productId");
     if (filteredProductId) {
       // Thiết lập filter cho AgGrid dựa trên productId
       setQuickFilterText(filteredProductId);
       // Xóa productId khỏi URL
-      queryParams.delete('productId');
+      queryParams.delete("productId");
       navigate(`?${queryParams.toString()}`, { replace: true });
     }
   }, [location, navigate]);
@@ -108,7 +108,9 @@ const ListProducts = () => {
           return "Chưa tạo loại màu/size";
         }
         return params.data.variantStock
-          .map((variant) => `${variant.color} / ${variant.size}: ${variant.stock}`)
+          .map(
+            (variant) => `${variant.color} / ${variant.size}: ${variant.stock}`
+          )
           .join(", ");
       }, // Giá trị dùng để tìm kiếm
       cellRenderer: (params) => {
@@ -237,10 +239,9 @@ const ListProducts = () => {
     // Xuất file
     XLSX.writeFile(wb, exportFileName);
   };
-  
-  
 
-  const onCellValueChanged = async(params) => {
+  // Update product visibility
+  const onCellValueChanged = async (params) => {
     if (params.colDef.field === "visible") {
       try {
         const { id, visible } = params.data;
@@ -250,9 +251,8 @@ const ListProducts = () => {
       } catch (error) {
         toast.error(error?.data?.message);
       }
-    } 
-  }
-
+    }
+  };
 
   return (
     <AdminLayout>
@@ -300,8 +300,6 @@ const ListProducts = () => {
             </div>
           </div>
 
-
-
           <div
             className="ag-theme-alpine"
             style={{ height: 600, width: "100%" }}
@@ -309,10 +307,15 @@ const ListProducts = () => {
             <AgGridReact
               columnDefs={columnDefs}
               rowData={rowData}
-              getRowStyle={(params) => ({
-                backgroundColor:
-                  params.node.rowIndex % 2 === 0 ? "#f5f5f5" : "#ffffff",
-              })}
+              getRowStyle={(params) => {
+                if (params.data.visible === false) {
+                  return {backgroundColor: "#d3d3d3", color: "#808080"};
+                }
+                return {
+                  backgroundColor:
+                    params.node.rowIndex % 2 === 0 ? "#f5f5f5" : "#ffffff",
+                }                 
+              }}
               domLayout="autoHeight"
               defaultColDef={{
                 flex: 1,
@@ -333,7 +336,6 @@ const ListProducts = () => {
 };
 
 export default ListProducts;
-
 
 // // MDBDataTable
 // const setProducts = () => {
@@ -409,7 +411,6 @@ export default ListProducts;
 
 //   return products;
 // };
-
 
 /* <MDBDataTable
   data={setProducts()}

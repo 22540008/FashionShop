@@ -113,7 +113,7 @@ const NewProduct = () => {
     <AdminLayout>
       <MetaData title={"Tạo Sản phẩm mới"} />
       <div className="row wrapper">
-        <div className="col-10 col-lg-10 mt-5 mt-lg-0">
+        <div className="col-11 col-lg-10 mt-5 mt-lg-0">
           <form className="shadow rounded bg-body" onSubmit={submitHandler}>
             <h2 className="mb-4">Sản phẩm mới</h2>
             <div className="row">

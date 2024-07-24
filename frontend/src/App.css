@@ -1813,3 +1813,26 @@ thead {
 }
 
 
+.variant-fieldset {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.variant-legend {
+  width: auto;
+  border: 1px solid #ccc;
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 0.5rem;
+  position: absolute;
+  top: -0.5rem; /* Đẩy lên để nằm đè lên viền */
+  left: 1rem;
+  background: white;
+  margin-left: -0.5rem; /* Điều chỉnh căn lề trái */
+  z-index: 1;
+}
