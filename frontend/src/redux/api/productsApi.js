@@ -103,6 +103,16 @@ export const productApi = createApi({
       },
       invalidatesTags: ["AdminProducts"],
     }),
+    updateProductVisibility: builder.mutation({
+      query({ id, visible }) {
+        return {
+          url: `/admin/products/${id}`,
+          method: "PUT",
+          body: { visible: visible },
+        };
+      },
+      invalidatesTags: ["Product", "AdminProducts"],
+    }),
     getProductReviews: builder.query({
       query: (producId) => `/reviews?id=${producId}`,
       providesTags: ["Reviews"],
@@ -129,6 +139,7 @@ export const {
   useCreateProductMutation,
   useUpdateProductMutation,
   useUploadProductImagesMutation,
+  useUpdateProductVisibilityMutation,
   useDeleteProductImageMutation,
   useDeleteProductMutation,
   useLazyGetProductReviewsQuery,

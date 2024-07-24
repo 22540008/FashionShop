@@ -6,6 +6,7 @@ import MetaData from "../layout/MetaData";
 import {
   useDeleteProductMutation,
   useGetAdminProductsQuery,
+  useUpdateProductVisibilityMutation,
 } from "../../redux/api/productsApi";
 import AdminLayout from "../layout/AdminLayout";
 import { AgGridReact } from "ag-grid-react";
@@ -20,6 +21,7 @@ const ListProducts = () => {
     deleteProduct,
     { isLoading: isDeleteLoading, error: deleteError, isSuccess },
   ] = useDeleteProductMutation();
+  const [updateProductVisibility] = useUpdateProductVisibilityMutation();
 
   const navigate = useNavigate();
   const location = useLocation(); // Search info
@@ -123,6 +125,19 @@ const ListProducts = () => {
       }, // Hiển thị giá trị từ valueGetter
     },
     {
+      headerName: "Hiện",
+      field: "visible",
+      sortable: true,
+      filter: true,
+      resizable: true,
+      editable: true,
+      cellEditor: "agSelectCellEditor",
+      cellEditorParams: {
+        values: ["true", "false"],
+      },
+      hide: false,
+    },
+    {
       headerName: "Hành động",
       field: "actions",
       cellRenderer: (params) => (
@@ -166,6 +181,7 @@ const ListProducts = () => {
       size: variant.size,
       stock: variant.stock,
     })),
+    visible: product?.visible,
     actions: {},
   }));
 
@@ -221,6 +237,22 @@ const ListProducts = () => {
     // Xuất file
     XLSX.writeFile(wb, exportFileName);
   };
+  
+  
+
+  const onCellValueChanged = async(params) => {
+    if (params.colDef.field === "visible") {
+      try {
+        const { id, visible } = params.data;
+        console.log(id, visible);
+        await updateProductVisibility({ id, visible });
+        toast.success("Cập nhật trạng thái hiển thị sản phẩm thành công");
+      } catch (error) {
+        toast.error(error?.data?.message);
+      }
+    } 
+  }
+
 
   return (
     <AdminLayout>
@@ -291,6 +323,7 @@ const ListProducts = () => {
               paginationPageSizeSelector={[10, 20, 50, 100]}
               localeText={AG_GRID_LOCALE_VN}
               quickFilterText={quickFilterText}
+              onCellValueChanged={onCellValueChanged}
             />
           </div>
         </div>
