@@ -78,8 +78,11 @@ export const cartSlice = createSlice({
         state.cartItems.splice(index, 1);
         state.cartItems.unshift(newItem);
       }
-      else
-        state.cartItems.splice(index, 1, newItem);
+      else{
+        state.cartItems.push(newItem);
+        state.cartItems.splice(index, 1);
+      }
+        // state.cartItems.splice(index, 1, newItem);
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       //const { selectedVariant, ...restItem } = rest;
     },
