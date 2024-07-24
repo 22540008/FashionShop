@@ -96,7 +96,7 @@ const UpdateProduct = () => {
       });
     } else if (type === "checkbox") {
       setProduct({ ...product, [name]: checked });
-    }else {
+    } else {
       setProduct({ ...product, [e.target.name]: e.target.value });
     }
   };
@@ -209,7 +209,7 @@ const UpdateProduct = () => {
             </div>
 
             <div className="row">
-              <div className="m b-3 col">
+              <div className="m b-3 col-12 col-md-6">
                 <label htmlFor="origin_field" className="form-label">
                   {" "}
                   Nguồn gốc{" "}
@@ -224,7 +224,7 @@ const UpdateProduct = () => {
                 />
               </div>
 
-              <div className="mb-3 col">
+              <div className="mb-3 col-12 col-md-6">
                 <label htmlFor="price_field" className="form-label">
                   {" "}
                   Giá (VNĐ){" "}
@@ -339,7 +339,7 @@ const UpdateProduct = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-3 col-4 col-md-3">
+                  <div className="mt-1 mb-2 col-4 col-md-3">
                     <label htmlFor={`size_field_${index}`} className="form-label">
                       Size
                     </label>
@@ -360,7 +360,7 @@ const UpdateProduct = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-3 col">
+                  <div className="mt-1 mb-2 col">
                     <label
                       htmlFor={`stock_field_${index}`}
                       className="form-label"

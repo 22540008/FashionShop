@@ -24,6 +24,7 @@ const initialProductState = () => ({
     subSubCategory: "",
   },
   variants: [{ color: "", size: "", stock: "" }],
+  visible: false,
   
 }); // ulitize code 2 places in component
 
@@ -47,10 +48,11 @@ const NewProduct = () => {
     }
   }, [error, isSuccess]);
 
-  const { productID, name, description, origin, price, category, variants } =
+  const { productID, name, description, origin, price, category, variants, visible } =
     product;
 
   const onChange = (e) => {
+    const { name, type, checked } = e.target;
     if (e.target.name.startsWith("variants")) {
       const [_, field, variantIndex] = e.target.name.split(".");
       const updatedVariants = [...product.variants];
@@ -62,6 +64,8 @@ const NewProduct = () => {
         ...product,
         category: { ...product.category, [categoryField]: e.target.value },
       });
+    } else if (type === "checkbox") {
+      setProduct({ ...product, [name]: checked });
     } else {
       setProduct({ ...product, [e.target.name]: e.target.value });
     }
@@ -176,7 +180,7 @@ const NewProduct = () => {
                 />
               </div>
 
-              <div className="mb-3 col-12 cold-md-6">
+              <div className="mb-3 col-12 col-md-6">
                 <label htmlFor="price_field" className="form-label">
                   {" "}
                   Giá (VNĐ){" "}
@@ -263,87 +267,105 @@ const NewProduct = () => {
             </div>
 
             {/* Variants form fields */}
-            {product.variants.map((variant, index) => (
-              <div key={index} className="row align-items-end">
-                <div className="mb-3 col-12 col-md-3">
-                  <label
-                    htmlFor={`color_field_${index}`}
-                    className="form-label"
-                  >
-                    Màu sắc
-                  </label>
-                  <select
-                    // type="text"
-                    id={`color_field_${index}`}
-                    className="form-control"
-                    name={`variants.color.${index}`}
-                    value={variant.color}
-                    onChange={(e) => onChange(e, index)}
-                    title="Các màu sắc được chấp nhận: Trắng, Đen, Đỏ, Xanh, Vàng, Hồng, Cam, Xám, Nâu, Sọc, Họa tiết"
-                  >
-                    <option value="">Trống</option>
-                    {PRODUCT_COLORS.map((color) => (
-                      <option key={color} value={color}>
-                        {color}
-                      </option>
-                    ))}
-                  </select>
+            <fieldset className="variant-fieldset">
+              <legend className="variant-legend">Loại lưu kho</legend>
+              {product.variants.map((variant, index) => (
+                <div key={index} className="row align-items-end">
+                  <div className="mt-1 mb-2 col-8 col-md-3">
+                    <label
+                      htmlFor={`color_field_${index}`}
+                      className="form-label"
+                    >
+                      Màu sắc
+                    </label>
+                    <select
+                      // type="text"
+                      id={`color_field_${index}`}
+                      className="form-control"
+                      name={`variants.color.${index}`}
+                      value={variant.color}
+                      onChange={(e) => onChange(e, index)}
+                      title="Các màu sắc được chấp nhận: Trắng, Đen, Đỏ, Xanh, Vàng, Hồng, Cam, Xám, Nâu, Sọc, Họa tiết"
+                    >
+                      <option value="">Trống</option>
+                      {PRODUCT_COLORS.map((color) => (
+                        <option key={color} value={color}>
+                          {color}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mt-1 mb-2 col-4 col-md-3">
+                    <label htmlFor={`size_field_${index}`} className="form-label">
+                      Size
+                    </label>
+                    <select
+                      // type="text"
+                      id={`size_field_${index}`}
+                      className="form-control"
+                      name={`variants.size.${index}`}
+                      value={variant.size}
+                      onChange={(e) => onChange(e, index)}
+                      title="Các kích cỡ được chấp nhận: S, M, L, F"
+                    >
+                      <option value="">Trống</option>
+                      {PRODUCT_SIZES.map((size) => (
+                        <option key={size} value={size}>
+                          {size}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mt-1 mb-2 col">
+                    <label
+                      htmlFor={`stock_field_${index}`}
+                      className="form-label"
+                    >
+                      Tồn kho
+                    </label>
+                    <input
+                      type="number"
+                      id={`stock_field_${index}`}
+                      className="form-control"
+                      name={`variants.stock.${index}`}
+                      value={variant.stock}
+                      onChange={(e) => onChange(e, index)}
+                    />
+                  </div>
+                  <div className="mb-3 col-auto">
+                    <button
+                      type="button"
+                      className="btn-form"
+                      onClick={() => removeVariant(index)}
+                    >
+                      Xoá
+                    </button>
+                  </div>
                 </div>
-                <div className="mb-3 col-12 col-md-3">
-                  <label htmlFor={`size_field_${index}`} className="form-label">
-                    Size
-                  </label>
-                  <select
-                    // type="text"
-                    id={`size_field_${index}`}
-                    className="form-control"
-                    name={`variants.size.${index}`}
-                    value={variant.size}
-                    onChange={(e) => onChange(e, index)}
-                    title="Các kích cỡ được chấp nhận: S, M, L, F"
-                  >
-                    <option value="">Trống</option>
-                    {PRODUCT_SIZES.map((size) => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="mb-3 col-12 col-md-3">
-                  <label
-                    htmlFor={`stock_field_${index}`}
-                    className="form-label"
-                  >
-                    Tồn kho
-                  </label>
-                  <input
-                    type="number"
-                    id={`stock_field_${index}`}
-                    className="form-control"
-                    name={`variants.stock.${index}`}
-                    value={variant.stock}
-                    onChange={(e) => onChange(e, index)}
-                  />
-                </div>
-                <div className="mb-3 col-auto">
-                  <button
-                    type="button"
-                    className="btn-form"
-                    onClick={() => removeVariant(index)}
-                  >
-                    Xoá
-                  </button>
-                </div>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="btn-form mb-3"
-              onClick={addVariant}
-            >
-              Thêm loại lưu kho
-            </button>
+              ))}
+              <button
+                type="button"
+                className="btn-form mt-1 mb-3"
+                onClick={addVariant}
+              >
+                Thêm loại lưu kho
+              </button>
+            </fieldset>
+            
+
+            <div className="mb-3 form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="visible_field"
+                name="visible"
+                checked={visible}
+                onChange={onChange}
+              />
+              <label className="form-check-label" htmlFor="visible_field">
+                Hiện
+              </label>
+            </div>
 
             <button
               type="submit"
