@@ -39,6 +39,8 @@ const ListUsers = () => {
   }, [error, deleteError, isSuccess]);
 
   const deleteUserHandler = (id) => {
+    const confirmed = window.confirm("Bạn chắc chắn muốn xóa tài khoản này?");
+    if (!confirmed) return;
     deleteUser(id);
   };
 
