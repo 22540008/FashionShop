@@ -1324,6 +1324,9 @@ nav {
     margin: auto;
   }
 }
+.custom-btn-height:hover {
+  transform: translateY(10px) scale(1.1);
+}
 
 
 @media (max-width: 390px) {
@@ -1480,6 +1483,10 @@ nav {
 }
 .product-list-table th:nth-child(3), .product-list-table td:nth-child(3) {
   width: 150px !important;
+}
+
+.indent {
+  padding-left: 1.5rem;
 }
 
 /* Bảng DS User- ADMIN */

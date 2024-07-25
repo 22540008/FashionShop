@@ -9,14 +9,15 @@ const AdminLayout = ({ children }) => {
       icon: "fas fa-tachometer-alt",
     },
     {
-      name: "Sản phẩm mới",
-      "url": "/admin/product/new",
-      icon: "fas fa-plus",
-    },
-    {
       name: "Sản phẩm",
       "url": "/admin/products",
       icon: "fab fa-product-hunt",
+    },
+    {
+      name: "Sản phẩm mới",
+      "url": "/admin/product/new",
+      icon: "fas fa-plus",
+      className: "indent",
     },
     {
       name: "Đơn hàng",

@@ -8,8 +8,8 @@ export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   tagTypes: ["Product", "AdminProducts", "Reviews"], // tags để xác định khi cần invalidate cache
-  // giữ data trong cache 2 giờ: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior
-  keepUnusedDataFor: 0,
+  // giữ data trong cache 1 giờ: https://redux-toolkit.js.org/rtk-query/usage/cache-behavior
+  keepUnusedDataFor: 3600,
   // builder to access the query function, mutations, send requests
   // endpoints lấy sản phẩm từ backend
   endpoints: (builder) => ({

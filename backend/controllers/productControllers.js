@@ -251,7 +251,6 @@ export const getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 export const updateProduct = catchAsyncErrors(async (req, res) => {
   // Khai báo hàm điều khiển newProduct nhận req và res làm tham số
   let product = await Product.findById(req?.params?.id); // Tìm kiếm sản phẩm: sử dụng phương thức findById của Mongoose để tìm kiếm sản phẩm với ID được cung cấp trong yêu cầu (req.params.id).
-  console.log("req body: ", req.body);
   if (!product) {
     //Kiểm tra sự tồn tại của sản phẩm:
     return next(new ErrorHandler("Không tìm thấy sản phẩm", 404)); //sử dụng một instance của lớp ErrorHandler và gọi hàm next để trả về lỗi 404
@@ -640,6 +639,8 @@ export const canUserReview = catchAsyncErrors(async (req, res) => {
     canReview: true,
   });
 });
+
+
 
 // export const canUserReview = catchAsyncErrors(async (req, res) => {
 //   try {
