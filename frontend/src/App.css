@@ -1846,3 +1846,18 @@ thead {
   margin-left: -0.5rem; /* Điều chỉnh căn lề trái */
   z-index: 1;
 }
+
+.clear-search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.clear-search-icon {
+  color: red !important;
+}
+.clear-search-icon:hover {
+  font-weight: bold !important;
+  scale: 1.3;
+}

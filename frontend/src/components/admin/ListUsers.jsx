@@ -37,6 +37,9 @@ const ListUsers = () => {
     }
   }, [location, navigate])
   
+  const clearSearch = () => {
+    setQuickFilterText("");
+  }
 
   useEffect(() => {
     if (error) {
@@ -170,14 +173,26 @@ const ListUsers = () => {
               marginBottom: "10px",
             }}
           >
-            <input
-              type="text"
-              placeholder="Tìm kiếm..."
-              value={quickFilterText}
-              onChange={(e) => setQuickFilterText(e.target.value)}
-              // style={{ marginBottom: "10px" }}
-              className="search-input"
-            />
+            <div>
+              <input
+                type="text"
+                placeholder="Tìm kiếm..."
+                value={quickFilterText}
+                onChange={(e) => setQuickFilterText(e.target.value)}
+                // style={{ marginBottom: "10px" }}
+                className="search-input"
+              />
+              {quickFilterText && (
+                <button
+                  title="Xóa bộ lọc"
+                  className="clear-search-button"
+                  onClick={clearSearch}
+                >
+                  <i className="fa fa-times clear-search-icon"></i>
+                </button>
+              )}
+
+            </div>
             <div style={{ display: "flex" }}>
               <Button onClick={onExportClick}>
                 <img

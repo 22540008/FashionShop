@@ -37,6 +37,10 @@ const ListProducts = () => {
     }
   }, [location, navigate]);
 
+  const clearSearch = () => {
+    setQuickFilterText("");
+  }
+
   // // Hàm xử lý thay đổi của input filter
   // const handleFilterChange = (event) => {
   //   setQuickFilterText(event.target.value);
@@ -274,13 +278,24 @@ const ListProducts = () => {
               marginBottom: "10px",
             }}
           >
-            <input
-              type="text"
-              placeholder="Tìm kiếm..."
-              value={quickFilterText}
-              onChange={(e) => setQuickFilterText(e.target.value)}
-              className="search-input"
-            />
+            <div>
+              <input
+                type="text"
+                placeholder="Tìm kiếm..."
+                value={quickFilterText}
+                onChange={(e) => setQuickFilterText(e.target.value)}
+                className="search-input"
+              />
+              {quickFilterText && (
+                <button
+                  title="Xóa bộ lọc" 
+                  className="clear-search-button"
+                  onClick={clearSearch}        
+                >
+                  <i className="fa fa-times clear-search-icon"></i>
+                </button>
+              )}
+            </div>
             <div style={{ display: "flex", gap: "10px" }}>
               {" "}
               {/* Sử dụng gap để tạo khoảng cách */}
