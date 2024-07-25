@@ -11,6 +11,8 @@ import {
   PRODUCT_SUBCATEGORIES,
   PRODUCT_SUBSUBCATEGORIES,
 } from "../../constants/constants";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const initialProductState = () => ({
   productID: "",
@@ -32,6 +34,7 @@ const NewProduct = () => {
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(initialProductState);
+  const [tempProductID, setTempProductID] = useState("");
 
   const [createProduct, { isLoading, error, isSuccess }] =
     useCreateProductMutation();
@@ -43,8 +46,23 @@ const NewProduct = () => {
     }
 
     if (isSuccess) {
-      toast.success("Sản phẩm đã được tạo");
+      // toast.success("Sản phẩm đã được tạo");
       // navigate("/admin/products");
+      console.log("productID", product.productID);
+      confirmAlert({
+        title: "Thành công",
+        message: "Tạo sản phẩm mới thành công. Bạn có muốn chuyển hướng trang quản lý sản phẩm?",
+        buttons: [
+          {
+            label: "Có",
+            onClick: () => navigate(`/admin/products?productId=${tempProductID}`)
+          },
+          {
+            label: "Không",
+            onClick: () => setProduct(initialProductState)
+          }
+        ]
+      })
     }
   }, [error, isSuccess]);
 
@@ -109,8 +127,9 @@ const NewProduct = () => {
       return;
     } // Kiểm tra trùng biến thể (màu và kích cỡ)
     console.log(product);
+    setTempProductID(product.productID);
     createProduct(product);
-    setProduct(initialProductState); // clear fields after successful creation
+    // setProduct(initialProductState); // clear fields after successful creation
   };
 
   return (
