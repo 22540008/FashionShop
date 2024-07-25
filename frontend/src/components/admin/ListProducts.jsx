@@ -300,16 +300,22 @@ const ListProducts = () => {
               {" "}
               {/* Sử dụng gap để tạo khoảng cách */}
               <Button onClick={toggleAutoHeight}>
+                <img
+                  src="../images/database.png"
+                  alt="Database_icon"
+                  className="icon2"
+                />
+                
                 {autoHeight
-                  ? "Thu gọn thông tin tồn kho"
-                  : "Xem chi tiết tồn kho"}
+                  ? "Thu gọn"
+                  : "Chi tiết"}
               </Button>
               <Button onClick={onExportClick}>
                 <img
                   src="../images/excel.png"
                   alt="Excel_icon"
-                  style={{ width: "20px", height: "20px" }}
-                />{" "}
+                  className="icon2"
+                />
                 Xuất Excel
               </Button>
             </div>

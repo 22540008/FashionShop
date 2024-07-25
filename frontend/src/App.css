@@ -1743,6 +1743,12 @@ thead {
   margin-right: 10px;
 }
 
+.icon2{
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+}
+
 /* Tạo gap giữa các Slick-slider*/
 .slider-container .slick-slide > div {
   margin: 0 0.1rem;
