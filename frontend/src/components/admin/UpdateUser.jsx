@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import AdminLayout from "../layout/AdminLayout";
 import { useGetUserDetailQuery, useUpdateUserMutation } from "../../redux/api/userApi";
@@ -13,6 +13,7 @@ const UpdateUser = () => {
   const [address, setAddress] = useState("");
   const [role, setRole] = useState("");
 
+  const navigate = useNavigate();
   const params = useParams();
 
   const { data } = useGetUserDetailQuery(params?.id);
@@ -56,12 +57,22 @@ const UpdateUser = () => {
     };
     updateUser({ id: params?.id, body: userData });
   };
+  
+  const handleBack = () => {
+    navigate(`/admin/users?userId=${params?.id}`);
+  }
 
   return (
     <AdminLayout>
       <MetaData title={"Cập nhật User"} />
       <div className="row wrapper">
         <div className="col-10 col-lg-8">
+          <button
+            className="btn mt-3 mb-1 arrow-button"
+            onClick={handleBack}
+          >
+            Quay lại
+          </button>
           <form className="shadow-lg" onSubmit={submitHandler}>
             <h2 className="mb-4">Cập nhật tài khoản</h2>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../layout/Loader";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import AdminLayout from "../layout/AdminLayout";
 import {
@@ -23,6 +23,20 @@ const ListUsers = () => {
     deleteUser,
     { isLoading: isDeleteLoading, error: deleteError, isSuccess },
   ] = useDeleteUserMutation();
+
+  const navigate = useNavigate();
+  const location = useLocation(); // search param
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const filteredUserId = queryParams.get("userId");
+    if (filteredUserId) {
+      setQuickFilterText(filteredUserId);
+      queryParams.delete("userId");
+      navigate(`?${queryParams.toString()}`, { replace: true });
+    }
+  }, [location, navigate])
+  
 
   useEffect(() => {
     if (error) {
@@ -159,6 +173,7 @@ const ListUsers = () => {
             <input
               type="text"
               placeholder="Tìm kiếm..."
+              value={quickFilterText}
               onChange={(e) => setQuickFilterText(e.target.value)}
               // style={{ marginBottom: "10px" }}
               className="search-input"
@@ -180,6 +195,9 @@ const ListUsers = () => {
               columnDefs={columnDefs}
               rowData={rowData}
               getRowStyle={(params) => {
+                if (params.data.role === "admin") {
+                  return { fontWeight: "bold" };
+                }
                 return {
                   backgroundColor:
                     params.node.rowIndex % 2 === 0 ? "#f5f5f5" : "#ffffff",

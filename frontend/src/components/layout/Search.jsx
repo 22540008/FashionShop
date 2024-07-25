@@ -63,7 +63,7 @@ const Search = () => {
         />
 
         <button id="search_btn" className="Btn" type="submit">
-          <i className="fa fa-search icon" aria-hidden="true"></i>
+          <i className="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
     </form>

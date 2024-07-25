@@ -24,7 +24,7 @@ const ListProducts = () => {
   const [updateProductVisibility] = useUpdateProductVisibilityMutation();
 
   const navigate = useNavigate();
-  const location = useLocation(); // Search info
+  const location = useLocation(); // Search param
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const filteredProductId = queryParams.get("productId");
@@ -37,10 +37,10 @@ const ListProducts = () => {
     }
   }, [location, navigate]);
 
-  // Hàm xử lý thay đổi của input filter
-  const handleFilterChange = (event) => {
-    setQuickFilterText(event.target.value);
-  };
+  // // Hàm xử lý thay đổi của input filter
+  // const handleFilterChange = (event) => {
+  //   setQuickFilterText(event.target.value);
+  // };
 
   useEffect(() => {
     if (error) {

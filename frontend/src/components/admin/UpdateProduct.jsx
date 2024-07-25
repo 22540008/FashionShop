@@ -376,7 +376,7 @@ const UpdateProduct = () => {
                       onChange={(e) => onChange(e, index)}
                     />
                   </div>
-                  <div className="mb-3 col-auto">
+                  <div className="mt-1 mb-2 col-auto">
                     <button
                       type="button"
                       className="btn-form"
